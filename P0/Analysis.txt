@@ -1,0 +1,16 @@
+Problem 0:
+ Not including the CSV code. The code written is constant time O(1) since we're just calling the first and last elements of the two data sets.
+
+Problem 1:
+ This code is linear time O(n), n being the longest of the two lists and space O(k) being the length of the set.
+
+Problem 2:
+ This is linear time O(n) since we're going through the list of calls looking for the longest. Constant space.
+
+Problem 3:
+ This is line time O(n) iterating through the list of calls but also sorting the set but being less than n or k so O(k log k) to sort the set.
+ Space is the number of unique values in the set O(k) if you will.
+
+Problem 4:
+  Similar to the previous problem linear time O(n) to loop through the longest list of calls but also O(m) looping through the texts separately.
+  The set taking up O(k) space and O(k log k) to sort the set which will be less than n.

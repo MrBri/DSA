@@ -5,8 +5,7 @@ def rearrange_array(input_list):
     nums = merge_sort_descending(input_list)
     
     # construct the two numbers by taking alternating digits
-    num1 = 0
-    num2 = 0
+    num1, num2 = 0, 0
     for i in range(len(nums)):
         if i % 2 == 0:
             num1 = num1 * 10 + nums[i]

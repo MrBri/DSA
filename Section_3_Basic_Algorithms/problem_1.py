@@ -1,21 +1,21 @@
 def sqrt(n: int) -> int:
-    print("n:", n)
     if n < 0:
-        raise ValueError("Cannot calculate square root of negative number")
-    if n < 2:
-        return n
+        raise ValueError("Square root not defined for negative numbers.")
     
-    # start with a rough estimate of the square root
-    x = n // 2
-    print("x:", x)
-    
-    # loop until the estimate stops changing
-    while True:
-        y = (x + n // x) // 2
-        print("y:", y)
-        if y >= x:
-            return x
-        x = y
+    left, right = 0, n
+
+    while left <= right:
+        mid = (left + right) // 2
+        mid_squared = mid * mid
+
+        if mid_squared == n:
+            return mid
+        elif mid_squared < n:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return left - 1
 
 print ("Pass" if  (3 == sqrt(9)) else "Fail")
 print ("Pass" if  (0 == sqrt(0)) else "Fail")

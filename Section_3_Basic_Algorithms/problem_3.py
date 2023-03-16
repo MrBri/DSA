@@ -1,79 +1,57 @@
-"""
-Solution of;
-Project: Problems vs Algorithms
-Problem 3: Rearrange Array Digits
-"""
-
-
-# mergesort function
-def merge_sort(list):
-
-    if len(list) <= 1:
-        return list
-
-    mid = len(list) // 2
-    l = list[:mid]
-    r = list[mid:]
-
-    l = merge_sort(l)
-    r = merge_sort(r)
-
-    return merge(l, r)
-
-
-def merge(l, r):
-
-    merged = []
-    l_index = 0
-    r_index = 0
-
-    while l_index < len(l) and r_index < len(r):
-        if l[l_index] > r[r_index]:
-            merged.append(r[r_index])
-            r_index += 1
-        else:
-            merged.append(l[l_index])
-            l_index += 1
-
-    merged += l[l_index:]
-    merged += r[r_index:]
-
-    return merged
-
-
 def rearrange_array(input_list):
-    """
-    Rearrange Array Elements so as to form two number such that their sum is maximum.
-
-    Args:
-       input_list(list): Input List
-    Returns:
-       (int),(int): Two maximum sums
-    """
-    input_list = merge_sort(input_list)
-    print("sort: ", input_list)
-
-    i = len(input_list) - 1
-
-    out_1 = ""
-    out_2 = ""
-
-    while i >= 0:
-
+    if len(input_list) < 2:
+        return [-1, -1]
+    # sort the array in descending order using merge sort
+    nums = merge_sort_descending(input_list)
+    
+    # construct the two numbers by taking alternating digits
+    num1, num2 = 0, 0
+    for i in range(len(nums)):
         if i % 2 == 0:
-            out_1 += str(input_list[i])
-
+            num1 = num1 * 10 + nums[i]
         else:
-            out_2 += str(input_list[i])
+            num2 = num2 * 10 + nums[i]
+    
+    return [num1, num2]
 
-        i -= 1
 
-    if out_1 > out_2:
+def merge_sort_descending(nums):
+    # base case
+    if len(nums) <= 1:
+        return nums
+    
+    # split the array into two halves
+    mid = len(nums) // 2
+    left = nums[:mid]
+    right = nums[mid:]
+    
+    # sort the left and right halves recursively
+    left = merge_sort_descending(left)
+    right = merge_sort_descending(right)
+    
+    # merge the sorted left and right halves
+    return merge_descending(left, right)
 
-        return list(map(int, [out_1, out_2]))
 
-    return list(map(int, [out_2, out_1]))
-
+def merge_descending(left, right):
+    result = []
+    i = 0
+    j = 0
+    
+    # merge the left and right arrays in descending order
+    while i < len(left) and j < len(right):
+        if left[i] > right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    
+    # append any remaining elements from the left or right array
+    result += left[i:]
+    result += right[j:]
+    
+    return result
 
 # test_case[0] is the list that we want to test
 # test_case[1] is the result that we expect
